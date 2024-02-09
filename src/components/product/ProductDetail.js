@@ -1,66 +1,77 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProductById } from '../../api-transactions/Products';
-
-// Import Swiper styles
-import 'swiper/css';
+import CartButtons from '../cart/CartButtons';
+import { CartContext } from '../../pages/Index';
 
 export default function ProductDetail() {
+    
+    const { dispatcher} = useContext(CartContext);
     const { productId } = useParams();
     const [product, setProduct] = useState();
+    const [image,setImage] = useState()
 
     useEffect(() => {
         getProductById(productId)
             .then((data) => {
                 setProduct(data);
-                console.log(data);
             });
     }, [productId]);
 
+    const setProductImage = (imageId)=>{
+        setImage(product?.images[imageId]);
+    }
+
+    useEffect(()=>{
+        setProductImage(0)
+    },[product])
+
     return (
-            <div className="row mt-5 g-0 d-flex justify-content-center">
+            <div style={{color:"rgb(235 251 255 / 83%)"}} className="row mt-5 g-0 d-flex justify-content-center">
                 <div className="col-8">
                     <div className="row">
-                        <div className="col-md-6">
-                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                        <img class="d-block w-100" src={product?.images[0]} alt="First slide"/>
+                        <div className="col-2">
+                            {
+                                product?.images[0] && <ImageBox imageId={0} setProductImage={setProductImage} product={product}/>
+                            }
+                            {
+                                product?.images[1] && <ImageBox imageId={1} setProductImage={setProductImage} product={product}/>
+                            }
+                            {
+                                product?.images[2] && <ImageBox imageId={2} setProductImage={setProductImage} product={product}/>
+                            }
+                            
                         </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100" src={product?.images[1]} alt="First slide"/> 
+                        <div className="col-md-5">
+                            <img className="d-block w-100" src={image} alt="First slide"/> 
                         </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100" src={product?.images[2]} alt="First slide"/>
+                        <div className="col-md-5 d-flex flex-column justify-content-between">
+                            <div className="card-header">
+                                <h3 className="card-title mb-5">{product?.title}</h3>
+                            </div>
+                            <div className="card-body">
+                                <p className="card-text">{product?.description}</p>
+                            </div>
+                            <div className="card-footer mb-3">
+                                <div className='mb-3'>
+                                    <h2>$ {product?.price}</h2>
+                                </div>
+                                <div className='mb-5'>
+                                    <CartButtons dispatcher={dispatcher} isCart={false} id={product?.id}/>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
                 </div>
-                            </div>
-                            <div className="col-md-6 d-flex flex-column justify-content-between">
-                                <div className="card-header">
-                                    <h3 className="card-title mb-5">{product?.title}</h3>
-                                </div>
-                                <div className="card-body">
-                                    <p className="card-text">{product?.description}</p>
-                                </div>
-                                <div className="card-footer">
-                                    <div>
-                                        <label htmlFor="">Price</label>
-                                        <h2>$ {product?.price}</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                
-        </div>
+            </div>
     );
+}
+
+const ImageBox = ({imageId,setProductImage,product})=>{
+    
+    return (
+        <div className='mb-2'>
+            <img className="d-block w-100" onClick={()=>setProductImage(imageId)} src={product?.images[imageId]} alt="First slide"/> 
+        </div>
+    )
 }

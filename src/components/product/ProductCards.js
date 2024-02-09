@@ -8,7 +8,9 @@ function ProductCards({data}) {
             
             {
                 data.map((product)=>(
-                    <Card key={product.id} product={product}/>
+                    <div>
+                        <Card key={product.id} product={product}/>
+                    </div>
                 ))
             }
 

@@ -16,9 +16,9 @@ export default function Home() {
                     <DisplayProducts category={currentPage.category} currentPage={currentPage} dispatch={dispatch}/>
                 </div>
 
-                <nav className="col-2">
-                    <ul className="nav flex-column list-group">
-                        <li className='list-group-item d-flex align-items-center'>
+                <nav  className="col-2">
+                    <ul  className="nav flex-column list-group">
+                        <li  className='list-group-item d-flex align-items-center'>
                             <i className='bx bx-category bx-sm'></i>CATEGORIES
                         </li>
 

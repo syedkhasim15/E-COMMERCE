@@ -1,33 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../../pages/Index';
 import Card from '../product/Card';
-import { getProductById } from '../../api-transactions/Products';
+import useCartProduct from '../../hooks/useCartProduct';
 
 export default function Cart() {
+
     const { cart } = useContext(CartContext);
-    const [products, setProducts] = useState([]);
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            const productDataPromises = cart.map(async (product) => {
-                const productData = await getProductById(product.Id);
-                return productData;
-            });
-
-            const resolvedProducts = await Promise.all(productDataPromises);
-            setProducts(resolvedProducts);
-        };
-
-        fetchProducts();
-    }, [cart]);
+    const [products,price] = useCartProduct(cart)
 
     return (
-        <div className="p-5">
-            <div className='row row-cols-1 row-cols-md-4'>
+        <div style={{color:"rgb(129 220 220 / 91%)"}} className="px-5">
+            <div className="my-4 d-flex justify-content-center align-items-center">
+                <h5><i class='bx bxs-cart-alt bx-md'> = ${price}</i></h5>
+            </div>
+            <div className='row row-cols-1 row-cols-md-4 g-4'>
                 {
 
-                    cart.length > 0 ? products.map((product) => (
-                                            <Card key={product.id} product={product} isCart = {true} />
+                    cart?.length > 0 ? products.map((product) => (
+                                            <div>
+                                                <Card key={product.id}  product={product} isCart = {true} />
+                                            </div>
                                         ))
                                     : <div>EMPTY CART</div>
                 }
