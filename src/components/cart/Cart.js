@@ -24,9 +24,14 @@ export default function Cart() {
     return (
         <div className="p-5">
             <div className='row row-cols-1 row-cols-md-4'>
-                {products.map((product) => (
-                    <Card key={product.id} product={product} isCart = {true} />
-                ))}
+                {
+
+                    cart.length > 0 ? products.map((product) => (
+                                            <Card key={product.id} product={product} isCart = {true} />
+                                        ))
+                                    : <div>EMPTY CART</div>
+                }
+                
             </div>
         </div>
     );

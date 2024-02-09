@@ -19,7 +19,7 @@ export const getProductByCategory = (category=1,offset=0,limit=9)=>{
 }
 
 // Fetch single product by id
-export const getProductById = (id=5)=>{
+export const getProductById = (id)=>{
     
     return myAxios.get(`products/${id}`)
                     .then((respone)=>respone.data)

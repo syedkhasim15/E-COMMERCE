@@ -6,7 +6,7 @@ export const CartContext = createContext(null);
 
 export default function Index() {
 
-    const [cart,setCart] = useState([{Id:5,count:1}])
+    const [cart,setCart] = useState([])
 
     const handleCart = (id,type)=>{
         
