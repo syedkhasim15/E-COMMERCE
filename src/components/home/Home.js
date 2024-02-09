@@ -2,6 +2,8 @@ import React from 'react'
 import DisplayProducts from './DisplayProducts'
 import usePagination from '../../hooks/usePagination';
 import Category from './Category';
+import Pagination from '../pagination/Pagination';
+
 
 export default function Home() {
 
@@ -12,11 +14,7 @@ export default function Home() {
 
             <div className='row g-5'>
 
-                <div className="col-10">
-                    <DisplayProducts category={currentPage.category} currentPage={currentPage} dispatch={dispatch}/>
-                </div>
-
-                <nav  className="col-2">
+                <nav  className="col-md-2 col-sm-12">
                     <ul  className="nav flex-column list-group">
                         <li  className='list-group-item d-flex align-items-center'>
                             <i className='bx bx-category bx-sm'></i>CATEGORIES
@@ -28,9 +26,16 @@ export default function Home() {
                         <Category dispatch={dispatch} category="Furniture" catId={3}/>
                         <Category dispatch={dispatch} category="Shoes" catId={4}/>
                         <Category dispatch={dispatch} category="Miscellaneous" catId={5}/>                        
-                         
                     </ul>
+                    <div className='mt-4 d-flex justify-content-center align-items-center mb-sm-4'>
+                            <Pagination page={currentPage.page} dispatch={dispatch} />
+                    </div>
                 </nav>     
+
+                <div className="col-md-10">
+                    <DisplayProducts category={currentPage.category} currentPage={currentPage} dispatch={dispatch}/>
+                </div>
+
             </div>
         </div>
     )

@@ -1,5 +1,5 @@
 import React from 'react'
-
+import '../header/navbar.css'
 
 
 export default function Category({category,catId,dispatch}) {
