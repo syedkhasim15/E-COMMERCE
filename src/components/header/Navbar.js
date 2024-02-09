@@ -19,13 +19,7 @@ export default function Navbar() {
                         <NavLink className="nav-link" to="/cart">Cart</NavLink>
                     </li>
                     <li className="nav-item dropdown">
-                    <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
                     
-                    </li>
-                    <li className="nav-item">
-                    <a className="nav-link disabled" aria-disabled="true">Disabled</a>
                     </li>
                 </ul>
                 </div>
